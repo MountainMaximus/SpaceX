@@ -4,8 +4,13 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
+    "@reduxjs/toolkit": "^1.9.5",
+    "@types/react-redux": "^7.1.25",
+    "axios": "^1.4.0",
+    "node-sass-install": "^1.0.2",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-redux": "^8.1.1"
   },
   "scripts": {
     "start": "webpack serve --config webpack.config.js",
