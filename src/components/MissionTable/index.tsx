@@ -1,11 +1,12 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import fetchFlight from "../../redux/fetch/asyncAction";
 
 import { getMissions } from "../../redux/fetch/selectors";
 import { getSort } from "../../redux/filter/selectors";
 import { setColumn } from "../../redux/filter/slice";
 import { useAppDispatch } from "../../redux/store";
-import { Status, TableTitles } from "../../types";
+import { DIRECTION, Status, TableTitles } from "../../types";
 import styles from "./Table.module.scss";
 
 export const MissionTable: React.FC = () => {
@@ -13,8 +14,14 @@ export const MissionTable: React.FC = () => {
   const { items: Missions, status } = useSelector(getMissions);
   const { direction } = useSelector(getSort);
 
+  React.useEffect(() => {
+    dispatch(fetchFlight({ direction, update: true }));
+  }, [direction]);
+
   const onClickColumn = (key: string) => {
-    if (key === "NAME") dispatch(setColumn());
+    if (key === "DATE") {
+      dispatch(setColumn());
+    }
   };
   if (status === Status.LOADING) return <div>Идет загрузка</div>;
   if (status === Status.ERROR) return <div>Ошибка при загрузке</div>;
@@ -26,8 +33,8 @@ export const MissionTable: React.FC = () => {
           {Object.entries(TableTitles).map(([key, val]) => (
             <th onClick={() => onClickColumn(key)} key={key}>
               {val}
-              {key === "NAME" && direction && <>&#9660;</>}
-              {key === "NAME" && !direction && <>&#9650;</>}
+              {key === "DATE" && direction === DIRECTION.DESC && <>&#9660;</>}
+              {key === "DATE" && direction === DIRECTION.ASC && <>&#9650;</>}
             </th>
           ))}
         </tr>
@@ -40,7 +47,13 @@ export const MissionTable: React.FC = () => {
               <td>{val.name}</td>
               <td>{val.date}</td>
               <td>{val.description}</td>
-              <td>{val.img}</td>
+              <td>
+                <img
+                  className={styles.rocket__img}
+                  src={val.img}
+                  alt="Rocket"
+                />
+              </td>
             </tr>
           ))
         ) : (

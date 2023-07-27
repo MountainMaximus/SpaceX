@@ -7,19 +7,29 @@
   text-align: center;
   margin: 20px auto;
 
+  display: block;
+  overflow-x: auto;
+
   th {
     background-color: $lighten;
     cursor: pointer;
     color: $text;
     font-size: 1.2rem;
-    padding: 5px;
+    padding: 10px;
     border: 1px solid $primary;
     position: relative;
     height: 40px;
   }
   td {
     border: 1px solid $primary;
+    padding: 10px;
+
     color: $text;
     font-size: 1rem;
+  }
+  .rocket__img {
+    display: block;
+    max-width: 100%;
+    max-height: 100%;
   }
 }

@@ -1,11 +1,12 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { DIRECTION } from "../../types";
 
 interface IFilterSlice {
-  direction: boolean;
+  direction: DIRECTION;
 }
 
 const initialState: IFilterSlice = {
-  direction: true,
+  direction: DIRECTION.ASC,
 };
 
 const filterSlice = createSlice({
@@ -13,7 +14,9 @@ const filterSlice = createSlice({
   initialState,
   reducers: {
     setColumn(state) {
-      state.direction = !state.direction;
+      state.direction === DIRECTION.ASC
+        ? (state.direction = DIRECTION.DESC)
+        : (state.direction = DIRECTION.ASC);
     },
   },
 });

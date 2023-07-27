@@ -3,13 +3,18 @@ export type IMissions = {
   name: string;
   date: string;
   description: string;
-  img: string;
+  img?: string;
 };
 
 export enum Status {
   LOADING = "loading",
   SUCCESS = "completed",
   ERROR = "error",
+}
+
+export enum DIRECTION {
+  ASC = "asc",
+  DESC = "desc",
 }
 
 export enum TableTitles {

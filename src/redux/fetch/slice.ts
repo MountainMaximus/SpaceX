@@ -35,7 +35,12 @@ const flightSlice = createSlice({
     });
 
     builder.addCase(fetchFlight.fulfilled, (state, action) => {
-      state.flight.items = action.payload;
+      action.payload.update
+        ? (state.flight.items = action.payload.data)
+        : (state.flight.items = [
+            ...state.flight.items,
+            ...action.payload.data,
+          ]);
 
       state.flight.status = Status.SUCCESS;
 
