@@ -16,6 +16,7 @@ root.render(
 );
 
 const devMode = process.env.MODE_ENV === "development";
+
 if (devMode && module && module.hot) {
   module.hot.accept();
 }

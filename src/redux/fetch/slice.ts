@@ -1,19 +1,27 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-import { IFlight, Status } from "../../types";
+import { IMissions, Status } from "../../types";
 import fetchFlight from "./asyncAction";
 
 interface flightSlice {
   flight: {
-    items: IFlight[];
+    items: IMissions[];
     status: Status;
   };
 }
 
 const initialState: flightSlice = {
   flight: {
-    items: [],
-    status: Status.LOADING, // loading | success | error
+    items: [
+      {
+        id: 1,
+        name: "string",
+        date: "string",
+        description: "string",
+        img: "string",
+      },
+    ],
+    status: Status.SUCCESS, // loading | success | error
   },
 };
 

@@ -1,14 +1,14 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "../axios";
 
-import { IFlight } from "../../types";
+import { IMissions } from "../../types";
 
 const fetchFlight = createAsyncThunk<
-  IFlight[],
+  IMissions[],
   { page?: number; category?: string; tags?: string }
 >("SpaceX/fetchFlight ", async (params) => {
   const { page } = params;
-  const { data } = await axios.get<IFlight[]>(`/article`, {
+  const { data } = await axios.get<IMissions[]>(`/article`, {
     params: {
       page,
     },

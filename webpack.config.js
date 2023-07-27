@@ -48,7 +48,7 @@ module.exports = {
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       title: "SpaceX",
-      template: "./src/index.html",
+      template: "./public/index.html",
       favicon: "./public/favicon.ico",
     }),
     new MiniCssExtractPlugin({

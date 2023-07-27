@@ -1,0 +1,25 @@
+@import "../../scss/var.scss";
+
+.root {
+  width: 100%;
+  overflow: hidden;
+  border-spacing: 0;
+  text-align: center;
+  margin: 20px auto;
+
+  th {
+    background-color: $lighten;
+    cursor: pointer;
+    color: $text;
+    font-size: 1.2rem;
+    padding: 5px;
+    border: 1px solid $primary;
+    position: relative;
+    height: 40px;
+  }
+  td {
+    border: 1px solid $primary;
+    color: $text;
+    font-size: 1rem;
+  }
+}

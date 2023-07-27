@@ -1,0 +1,8 @@
+@import "./scss/var.scss";
+
+.content {
+  margin: $header-height 20px 0;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}

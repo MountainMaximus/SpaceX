@@ -1,15 +1,23 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-interface IFilterSlice {}
+interface IFilterSlice {
+  direction: boolean;
+}
 
-const initialState: IFilterSlice = {};
+const initialState: IFilterSlice = {
+  direction: true,
+};
 
 const filterSlice = createSlice({
   name: "filters",
   initialState,
-  reducers: {},
+  reducers: {
+    setColumn(state) {
+      state.direction = !state.direction;
+    },
+  },
 });
 
-export const {} = filterSlice.actions;
+export const { setColumn } = filterSlice.actions;
 
 export default filterSlice.reducer;

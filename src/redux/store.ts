@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { useDispatch } from "react-redux";
 
-import data from "./fetchflight /slice";
+import data from "./fetch/slice";
 import filter from "./filter/slice";
 
 export const store = configureStore({
