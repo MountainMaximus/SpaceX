@@ -6,7 +6,7 @@ import { getMissions } from "../../redux/fetch/selectors";
 import { getSort } from "../../redux/filter/selectors";
 import { setColumn } from "../../redux/filter/slice";
 import { useAppDispatch } from "../../redux/store";
-import { DIRECTION, Status, TableTitles } from "../../types";
+import { DIRECTION, IMissions, Status, TableTitles } from "../../types";
 import styles from "./Table.module.scss";
 
 export const MissionTable: React.FC = () => {
@@ -23,7 +23,38 @@ export const MissionTable: React.FC = () => {
       dispatch(setColumn());
     }
   };
-  if (status === Status.LOADING) return <div>Идет загрузка</div>;
+
+  const getContent = () => {
+    if (status === Status.LOADING)
+      return (
+        <>
+          {[...new Array(5)].map((_, index) => (
+            <tr key={index}>
+              <td colSpan={4} className={styles.skeleton}>
+                Подождите идет загрузка
+              </td>
+            </tr>
+          ))}
+        </>
+      );
+    if (!Missions)
+      return (
+        <tr>
+          <td colSpan={4}>Не найдено результатов по запросу</td>
+        </tr>
+      );
+    return Missions.map((obj) => (
+      <tr key={obj.id}>
+        <td>{obj.name}</td>
+        <td>{obj.date}</td>
+        <td>{obj.description}</td>
+        <td>
+          <img className={styles.rocket__img} src={obj.img} alt="Rocket" />
+        </td>
+      </tr>
+    ));
+  };
+
   if (status === Status.ERROR) return <div>Ошибка при загрузке</div>;
 
   return (
@@ -31,7 +62,17 @@ export const MissionTable: React.FC = () => {
       <thead>
         <tr>
           {Object.entries(TableTitles).map(([key, val]) => (
-            <th onClick={() => onClickColumn(key)} key={key}>
+            <th
+              onClick={() => onClickColumn(key)}
+              key={key}
+              style={
+                key === "DESCRIPTION"
+                  ? {
+                      width: "100%",
+                    }
+                  : {}
+              }
+            >
               {val}
               {key === "DATE" && direction === DIRECTION.DESC && <>&#9660;</>}
               {key === "DATE" && direction === DIRECTION.ASC && <>&#9650;</>}
@@ -40,28 +81,7 @@ export const MissionTable: React.FC = () => {
         </tr>
       </thead>
 
-      <tbody>
-        {Missions ? (
-          Missions.map((val) => (
-            <tr key={val.id}>
-              <td>{val.name}</td>
-              <td>{val.date}</td>
-              <td>{val.description}</td>
-              <td>
-                <img
-                  className={styles.rocket__img}
-                  src={val.img}
-                  alt="Rocket"
-                />
-              </td>
-            </tr>
-          ))
-        ) : (
-          <tr>
-            <td colSpan={3}>Папка пуста</td>
-          </tr>
-        )}
-      </tbody>
+      <tbody>{getContent()}</tbody>
     </table>
   );
 };
