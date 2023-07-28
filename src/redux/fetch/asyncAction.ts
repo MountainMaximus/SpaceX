@@ -12,11 +12,13 @@ interface PayloadData {
     details: string;
     rocket: string;
   }[];
+  totalPages: number;
+  page: number;
 }
 
 const fetchFlight = createAsyncThunk<
-  { data: IMissions[]; update?: boolean },
-  { direction: string; page?: string; update?: boolean }
+  { data: IMissions[]; update: boolean; totalPages: number; page: number },
+  { direction: string; page?: number; update: boolean }
 >("SpaceX/fetchFlight ", async (params) => {
   const { direction, page, update } = params;
   const { data } = await axios.post<PayloadData>(`/launches/query`, {
@@ -34,12 +36,10 @@ const fetchFlight = createAsyncThunk<
       },
     },
   });
-  console.log(data, Date.now());
 
   const rockets = await axios.get<{ id: string; flickr_images: string[] }[]>(
     `/rockets`
   );
-  console.log(rockets, Date.now());
 
   const newData = data.docs.map((obj) => {
     return {
@@ -51,9 +51,13 @@ const fetchFlight = createAsyncThunk<
         ?.flickr_images[0],
     };
   });
-  console.log(newData, Date.now());
 
-  return { data: newData as unknown as IMissions[], update };
+  return {
+    data: newData as unknown as IMissions[],
+    update,
+    totalPages: data.totalPages,
+    page: data.page,
+  };
 });
 
 export default fetchFlight;

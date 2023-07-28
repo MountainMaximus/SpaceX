@@ -8,6 +8,8 @@ interface flightSlice {
     items: IMissions[];
     status: Status;
   };
+  page: number;
+  totalPages: number;
 }
 
 const initialState: flightSlice = {
@@ -23,6 +25,8 @@ const initialState: flightSlice = {
     ],
     status: Status.SUCCESS, // loading | success | error
   },
+  page: 0,
+  totalPages: 0,
 };
 
 const flightSlice = createSlice({
@@ -43,6 +47,8 @@ const flightSlice = createSlice({
           ]);
 
       state.flight.status = Status.SUCCESS;
+      state.page = action.payload.page;
+      state.totalPages = action.payload.totalPages;
 
       state.flight.status = Status.SUCCESS;
     });
