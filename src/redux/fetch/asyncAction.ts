@@ -36,6 +36,7 @@ const fetchFlight = createAsyncThunk<
       },
     },
   });
+  console.log(data);
 
   const rockets = await axios.get<{ id: string; flickr_images: string[] }[]>(
     `/rockets`

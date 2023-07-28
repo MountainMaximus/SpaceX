@@ -28,7 +28,7 @@ export const MissionTable: React.FC = () => {
     }
   };
   React.useEffect(() => {
-    if (inView) {
+    if (inView && status !== Status.LOADING) {
       dispatch(fetchFlight({ direction, update: false, page: page + 1 }));
     }
   }, [inView]);
