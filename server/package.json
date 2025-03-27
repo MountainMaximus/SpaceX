@@ -1,0 +1,18 @@
+{
+    "name": "my-app",
+    "version": "1.0.0",
+    "description": "React frontend with a fake backend using json-server",
+    "main": "server.js",
+    "type": "module",
+    "scripts": {
+      "start": "node server.js"
+    },
+    "dependencies": {
+      "json-server": "^0.17.0",
+      "concurrently": "^8.2.2"
+    },
+    "devDependencies": {},
+    "engines": {
+      "node": ">=14.0.0"
+    }
+  }
